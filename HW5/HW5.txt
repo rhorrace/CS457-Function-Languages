@@ -1,0 +1,100 @@
+Robert Horrace
+CS 457
+Homework 5
+
+All code for homework 5 will be in HW5.hs
+and any explanations and tests will be in this
+document. Any graph test examples will be in the back.
+
+Problem 1
+
+Since I am using the Treedot library,
+it seems clear to use instances, making
+the VizTree a Tree and a LabeledTree.
+Tree has the subtrees function, which returns
+a list of tree, which in the case of a VizTree,
+which is a VizNode String [VizNode], it would 
+return the [VizNode] of the VizTree. For the 
+LabeledTree instance, it has the label function,
+which returns the data of the Tree, represented 
+as a String. In this case, label for the VizTree
+will return the String part of the VizTree. There
+is no real need to test this, since slides 61 and 62 
+of week 5's slides show similar examples. If testing is needed,
+it will be at the end where some dot files might need to be
+displayed for testing purposes, making sure the display
+is correct.
+
+Problem 2:
+
+It is possible to have toVizTree x
+and toVizTree xs in the same list,
+due to its type, toViztree x becomes
+VizNode "x" [] and toVizTree xs becomes
+VizNode ":" [...], making them both the 
+same type. Since they are the same type,
+they can be in the same list. 
+  
+For example, using VN as VizNode
+[1,2] -> VN ":" [VN "1" [], VN ":" [VN "2" [], VN "[]" []]]
+
+This example proves it possible since the 
+lists are part of a VizNode type, which leads to
+a "nesting" of lists and leading to toVizTree x
+and toVizTree xs are the same type.
+
+Even though x is the head and xs is the tail
+of the list argument, it is ok to put them
+into the same list due to the instances defined.
+If x is an Integer or a Char, it will become a 
+VizTree and xs is recursivly called until we reach 
+the end of the list, repeating the process multiple times. 
+
+---------------------------------------
+
+How would you visualize a VizTree? Page 3
+
+Visualizing a VizTree is pretty simple
+The VizNode String [VizNode] is three parts,
+the first VizNode is the root of the tree, the String
+is its label, the date it holds in it, and the
+[VizNode] is its subtrees. In the [VizNode],
+The list only contains two VizNodes, the first one is 
+the left subtree and the one on its right is the rest 
+of the tree, which is in one VizNode. Since the left 
+subtree of each node is a leaf, we can visualize it
+in this way. When it is graphed, it will be easier
+to visualize. 
+
+-----------------------------------------
+
+Regarding to viz [1..4::Integer] Page 4
+
+viz [1..4] without the ::Integer annotation does not
+seem to be any problem. It might be a problem for older
+version of ghci or hugs, but ghci 8.6.3 does not have this issue
+
+-----------------------------------------
+
+Regarding to the end of page 5, beginning of page 6
+
+The toVizList function is defined within the Viz a class,
+which leads to any type of a, which leads to type ambiguity.
+Since the toVizList function is defined, it can be used for any
+list of a, as long as the instance of the Viz type is defined,
+(Viz Char, Viz Int, etc.) 
+leading to a better use of certain data types.
+The Char instance can be used on a list of Chars, that are
+strings but not of the String type per se.
+
+------------------------------------------
+
+While teaching classes Parg 6
+
+In the longer term, it might be limiting when trying to 
+maybe explain the Treedot library or when trying to use 
+a type that was not defined, which may leadto issues.
+I still don't have a full grasp on instances and classes
+myself. Or maybe trying to explaine specific instances,
+like the Maybe instance.
+
